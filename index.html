@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+</head>
+<body>
+    <div class="main-container">
+        <form action="" class="form">
+        <h1>Currency Convertor</h1>
+        <!-- Required Amount -->
+        <input type="text" class="amount" placeholder="Enter an amount...">
+        <!-- Currency from -->
+        <select name="Currencyfrom" id="currencyFrom">
+            <option value=" " disabled selected>From</option>
+            <option value="PKR">Pakistani Rupee(PKR)</option>
+            <option value="EUR">EURO(EUR)</option>
+            <option value="SAR">Saudi Riyal(SAR)</option>
+            <option value="USD">US Dollar(USD)</option>
+        </select>
+        <!-- Currency To -->
+        <select name="CurrencyTo" id="currencyTo">
+            <option value=" " disabled selected class="placeholdervalue">To</option>
+            <option value="PKR">Pakistani Rupee(PKR)</option>
+            <option value="EUR">EURO(EUR)</option>
+            <option value="SAR">Saudi Riyal(SAR)</option>
+            <option value="USD">US Dollar(USD)</option>
+        </select>
+        <!-- Convert Button  -->
+        <input type="button" value="Convert" id="convert">
+        <!-- result -->
+       <div class="result"></div>
+    </form>
+    
+     <!-- chart canvas -->
+    <div class='canvas-div'>
+        <img class='placeholderimage' src="images/coinanimated.gif">
+        <canvas id="canvas"></canvas>
+    </div>
+    
+
+    </div>
+   
+</body>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="app.js"></script>
+</html>

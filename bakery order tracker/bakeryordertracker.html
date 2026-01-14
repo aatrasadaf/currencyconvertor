@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            font-family:Verdana, Geneva, Tahoma, sans-serif;
+            margin: 30px;
+            background-color: rgb(252, 217, 222);
+        }
+        h1 {
+            text-align: center;                       
+            color: rgb(248, 156, 171);
+        }
+        .mainContainer {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        .menudiv {
+            border: 2px solid rgb(248, 172, 185);
+            border-radius: 15px;
+            padding: 10px;
+            width: 97%;
+            height: 200px;
+        }
+        .orderdiv{
+            border: 2px solid rgb(248, 172, 185);
+            border-radius: 15px;
+            padding: 10px;
+            width: 400px;
+            height: 400px;
+            display: flex;
+            flex-direction: column;
+            gap:30px;
+            justify-content: center;
+            align-items: center;
+        }
+        .orderdiv input {
+            width: 350px;
+            height:40px;
+            /* padding: 10px; */
+            border-radius: 5px;
+            border: 2px solid rgb(248, 172, 185);
+        }
+        .orderdiv button {
+            width: 350px;
+            height: 40px;
+            background-color: rgb(248, 156, 171);
+            border: 2px solid rgb(248, 156, 171);
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .orderdiv button:hover {
+            background-color: rgb(243, 127, 146);
+            border-color: rgb(243, 127, 146);
+        }
+        
+    </style>
+</head>
+<body>
+    <h1>🧁Bakery order Tracker</h1>
+    <div class="menudiv">
+        <p><strong>Menu:</strong></p>
+    </div>
+
+    <div class="mainContainer">
+        
+        <div class="orderdiv">
+        <h4>Place Your Order</h4>
+        <input type="text" id="orderInput" placeholder="Enter item(s), separated by commas">
+        <button onclick="handleOrder()">Place Order</button>
+        </div>
+        <div class="ordersummarydiv">
+         
+        </div>
+    </div>
+    
+</body>
+<script>
+    // Menu items
+    const menu = ["Cake", "Croissant", "Donut", "Muffin", "Bread", "Pastry", "Tart", "Biscuit",
+                  "Brownie", "Scone", "Cupcake", "Pancake", "Waffle", "Cookie", "Pie", "Pizza"];
+    let customerOrders = [];
+
+    // Show menu on the page
+    function showMenu(){
+        const menuDiv = document.querySelector('.menudiv');
+
+        // const ulMenu = document.createElement('ul');
+
+        menu.forEach(item => {
+            // const liMenu = document.createElement('li');
+
+            //create an image tag
+            const imgMenu = document.createElement('img');
+            imgMenu.src = `images/${item.toLowerCase()}.jpg`;// Assuming images are named as item names in lowercase
+            imgMenu.alt = item;
+            imgMenu.style.width = '50px'; // Set width for the image
+            imgMenu.style.height = '50px'; // Set height for the image
+            imgMenu.style.borderRadius = '50%'; // Make the image circular
+            imgMenu.style.marginRight = '10px'; // Add some space between image and text
+            menuDiv.appendChild(imgMenu); // Append image to the menu div
+            menuDiv.appendChild(document.createTextNode(item));
+            menuDiv.style.display = 'flex'; // Use flexbox to align image and text
+            menuDiv.style.flexDirection = 'row'; // Align items in a column
+            menuDiv.style.alignItems = 'flex-start'; // Align items to the start
+           
+            // liMenu.style.display = 'flex'; // Use flexbox to align image and text
+            // liMenu.style.flexDirection = 'row'; // Align items in a row
+            // liMenu.style.alignItems = 'center'; // Center align items vertically
+            // liMenu.style.marginBottom = '10px'; // Add some space between list items
+
+            // liMenu.appendChild(imgMenu); // Append image to the list item
+            // liMenu.appendChild(document.createTextNode(item)); // Append item text to the list item
+            // ulMenu.appendChild(liMenu);
+        })
+
+        // menuDiv.appendChild(ulMenu);
+    }
+   
+    // Handle order button click
+    function handleOrder(){
+        const input = document.querySelector("#orderInput").value;
+        const items = input.split(",").map(item => item.trim());
+        placeOrder(items);
+        document.querySelector("#orderInput").value = ""; // clear input box
+    }
+
+
+    // Place one or multiple orders
+    function  placeOrder(input){
+        let itemsArray = Array.isArray(input) ? input : [input];
+        let messages = [];
+        itemsArray.forEach(item => {
+            if(menu.includes(item)){
+                customerOrders.push(item);
+                messages.push(`✅ Order placed for: ${item}`);
+            }
+            else {
+                messages.push(`❌ Sorry, ${item} is not on the menu.`);
+            }
+        })
+
+        // Display order summary
+        const ordersummaryDiv = document. createElement('div');
+
+        ordersummaryDiv.className = 'ordersummarydiv';
+        document.querySelector('.ordersummarydiv').style.border = '2px solid rgb(248, 172, 185)';
+        document.querySelector('.ordersummarydiv').style.borderRadius = '15px';
+        document.querySelector('.ordersummarydiv').style.padding = '10px 20px';
+        document.querySelector('.ordersummarydiv').style.width = '350px';
+        document.querySelector('.ordersummarydiv').style.height = '400px';
+        document.querySelector('.ordersummarydiv').style.display = 'flex';
+        document.querySelector('.ordersummarydiv').style.flexDirection = 'column';
+        document.querySelector('.ordersummarydiv').style.gap = '30px';
+        document.querySelector('.ordersummarydiv').style.justifyContent = 'center';
+        
+        document.querySelector('.ordersummarydiv').innerHTML =`
+                  <h4>Your Order Summary</h4>
+                  <ul>${messages.map(msg => `<li>${msg}</li>`).join("")}</ul>
+                  <p><strong>Total items ordered:</strong>${customerOrders.length}</p>`
+
+        document.querySelector('.mainContainer').appendChild(ordersummaryDiv);
+        
+        
+    }
+
+    showMenu();
+
+    
+                  
+
+    
+</script>
+</html>
