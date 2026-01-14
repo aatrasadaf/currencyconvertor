@@ -26,6 +26,11 @@ The app allows users to convert currencies in real time using an exchange rate A
 
 ---
 
+## Live Demo
+
+currency-convertorlive.netlify.app
+
+
 ⚙️ How It Works
 
 Enter an amount
